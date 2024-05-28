@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>header</title>
+</head>
+<body>
+    <th:block th:fragment="headerLayout(isAdminTEST)">
+        <header class="logical_block">
+            <div class="nav_icon"><img src="/img/header/hamburger.png"></div>
+            <div class="nav_icon"><img src="/img/header/search.png"></div>
+            <div class="phat_logo"><img src="/img/logos/header_logo.jpg"></div>
+            <div th:class="${isAdminTEST == 'true' ? 'nav_icon' : 'hidden'}"><img src="/img/header/admin.png"></div>
+            <div class="nav_icon"><img src="/img/header/lock.png"></div>
+        </header>
+    </th:block>
+</body>
+</html>

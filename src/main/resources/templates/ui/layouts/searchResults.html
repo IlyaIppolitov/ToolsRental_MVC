@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <th:block th:fragment="searchResultsLayout(items)">
+        <div class="shop">
+            <div class="categories">
+                <th:block th:each="item : ${items}">
+                    <a th:href="@{'/item/' + ${item.id}}">
+                        <div class="category">
+                            <div class="category_img">
+                                <img th:src="@{'/img/shop/' + ${item.brand} + '/' + ${item.model} + ${item.brand == 'Kangol' ? '.webp' : '.jpeg'}}">
+<!--                                <img th:src="@{${'/img/shop/' + item.brand + '/' + item.model + item.brand == 'Kangol' ? '.webp' : '.jpeg'}}">-->
+                            </div>
+                            <div class="category_caption">[[${item.model}]]</div>
+                        </div>
+                    </a>
+                </th:block>
+            </div>
+            <div class="brands">
+                <div class="brand"></div>
+                <div class="brand"></div>
+                <div class="brand"></div>
+                <div class="brand"></div>
+                <div class="brand"></div>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>

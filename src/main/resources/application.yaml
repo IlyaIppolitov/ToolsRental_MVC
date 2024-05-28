@@ -1,0 +1,20 @@
+spring:
+  thymeleaf:
+    cache: false  # Disable Thymeleaf template caching for development
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: ToolsRental
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tools_rental
+    username: postgres
+    password: password
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8000
+
+debug: true
