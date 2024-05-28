@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.klozevitz.phat_mvc.model.entities.shop.itemAttributes.Sex;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,14 +25,11 @@ public class Item {
     private String model;
     @Column(name = "price")
     private Double price;
-    @Column(name = "sex")
-    @Enumerated(EnumType.STRING)
-    private Sex sex;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "brand_id")
+    @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "category_id")
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private Set<StockPosition> positions = new HashSet<>();

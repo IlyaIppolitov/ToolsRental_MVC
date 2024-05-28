@@ -1,9 +1,9 @@
 package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 
+import com.itexclusive.toolsrental_mvc.model.dao.repositories.StockPositionRepository;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.StockPositionService;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.StockPosition;
 import lombok.RequiredArgsConstructor;
-import org.klozevitz.phat_mvc.model.dao.repositories.StockPositionRepository;
-import org.klozevitz.phat_mvc.model.dao.services.interfaces.StockPositionService;
-import org.klozevitz.phat_mvc.model.entities.shop.StockPosition;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

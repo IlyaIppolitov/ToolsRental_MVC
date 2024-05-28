@@ -21,6 +21,8 @@ public class Category {
     private Integer id;
     @Column(name = "name")
     private String name;
+    @Column(name = "description")
+    private String description = "";
     @OneToMany(mappedBy = "category")
     private Set<Item> stock;
 

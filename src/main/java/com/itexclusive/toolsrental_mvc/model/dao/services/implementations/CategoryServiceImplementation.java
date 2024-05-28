@@ -1,9 +1,9 @@
 package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 
+import com.itexclusive.toolsrental_mvc.model.dao.repositories.CategoryRepository;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.CategoryService;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.Category;
 import lombok.RequiredArgsConstructor;
-import org.klozevitz.phat_mvc.model.dao.repositories.CategoryRepository;
-import org.klozevitz.phat_mvc.model.dao.services.interfaces.CategoryService;
-import org.klozevitz.phat_mvc.model.entities.shop.Category;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

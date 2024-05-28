@@ -1,7 +1,7 @@
 package com.itexclusive.toolsrental_mvc.controllers;
 
-import com.itexclusive.toolsrental.dao.user.UserService;
-import com.itexclusive.toolsrental.model.entities.User;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
+import com.itexclusive.toolsrental_mvc.model.entities.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ public class RegistrationController {
 
     @GetMapping
     public String registrationPage() {
-        return "registration";
+        return "/ui/pages/registration";
     }
 
     // сделать с редиректом и RedirectAttributes

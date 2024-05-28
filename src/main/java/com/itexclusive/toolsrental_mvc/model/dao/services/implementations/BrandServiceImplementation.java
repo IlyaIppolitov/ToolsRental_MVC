@@ -1,9 +1,9 @@
 package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 
+import com.itexclusive.toolsrental_mvc.model.dao.repositories.BrandRepository;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.BrandService;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.Brand;
 import lombok.RequiredArgsConstructor;
-import org.klozevitz.phat_mvc.model.dao.repositories.BrandRepository;
-import org.klozevitz.phat_mvc.model.dao.services.interfaces.BrandService;
-import org.klozevitz.phat_mvc.model.entities.shop.Brand;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

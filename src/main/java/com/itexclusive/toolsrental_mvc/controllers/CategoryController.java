@@ -1,8 +1,8 @@
 package com.itexclusive.toolsrental_mvc.controllers;
 
 
-import com.itexclusive.toolsrental.dao.category.CategoryService;
-import com.itexclusive.toolsrental.model.entities.Category;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.CategoryService;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +20,7 @@ public class CategoryController {
     @GetMapping
     private String categoriesPage(Model model) {
         model.addAttribute("categories", categoryService.all());
-        return "/entities/categories";
-    }
-
-    @GetMapping("/{id}")
-    private String getById(@PathVariable int id, Model model) {
-        model.addAttribute("category", categoryService.findById(id).get());
-        model.addAttribute("categories", categoryService.all());
-        return "/entities/categories";
+        return "/ui/pages/categories";
     }
 
     @PostMapping
@@ -44,7 +37,7 @@ public class CategoryController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
-        categoryService.delete(id);
+        categoryService.deleteById(id);
         return "redirect:/categories";
     }
 }

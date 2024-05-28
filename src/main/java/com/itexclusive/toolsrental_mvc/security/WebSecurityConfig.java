@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                 // Определение страниц доступных анонимам
                 .requestMatchers("/register", "/login").anonymous()
                 // Определение страниц доступных вошедшим
-                .requestMatchers("/logout", "/profile", "/categories").authenticated()
+                .requestMatchers("/logout", "/checkout", "/categories").authenticated()
                 // Везде можно ходить админу и тестировщику
                 .requestMatchers("/**").hasAnyRole("ADMIN", "TEST")
                 // Все остальные запросы доступны только с антентификацией
@@ -61,9 +61,10 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers("/styles/*.css");
+        return web -> web
+            .ignoring()
+            .requestMatchers("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/**");
     }
-
     @Bean
     public AuthenticationManager authenticationManager(
         UserDetailsService userDetailsService,

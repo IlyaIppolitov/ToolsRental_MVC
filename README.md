@@ -27,4 +27,14 @@
 ***
 ### Предметная область
 Начальное состояние предметной области:
-![img.png](img.png)
+![img.png](readmeIMG/img.png)
+***
+### Основные страницы
+Авторизация:
+![login.png](readmeIMG/login.png)
+Регистрация:
+![registration.png](readmeIMG/registration.png)
+Категории (аналогично товарам в категории):
+![categories.png](readmeIMG/categories.png)
+Корзина:
+![checkout.png](readmeIMG/checkout.png)

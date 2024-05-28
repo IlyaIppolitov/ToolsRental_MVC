@@ -1,8 +1,9 @@
 package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 
-import com.itexclusive.toolsrental.model.entities.Role;
-import com.itexclusive.toolsrental.model.entities.User;
-import com.itexclusive.toolsrental.model.repositories.UserRepository;
+import com.itexclusive.toolsrental_mvc.model.dao.repositories.UserRepository;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
+import com.itexclusive.toolsrental_mvc.model.entities.user.Role;
+import com.itexclusive.toolsrental_mvc.model.entities.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,21 +30,37 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public List<User> all() {
-        return null;
+        return repo.findAll();
     }
 
     @Override
     public Optional<User> findById(int id) {
-        return Optional.empty();
+        try {
+            return repo.findById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Override
     public User update(User user) {
-        return null;
+        try {
+            return repo.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public boolean deleteById(int id) {
+        try {
+            repo.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
