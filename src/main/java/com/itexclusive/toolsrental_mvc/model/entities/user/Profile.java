@@ -1,7 +1,11 @@
 package com.itexclusive.toolsrental_mvc.model.entities.user;
 
+import com.itexclusive.toolsrental_mvc.model.entities.shop.Order;
+import com.itexclusive.toolsrental_mvc.model.security.User;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,6 +18,15 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne(mappedBy = "profile")
+    @Column(name = "name")
+    private String name;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "email")
+    private String email;
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id")
+    private Set<Order> orders;
 }

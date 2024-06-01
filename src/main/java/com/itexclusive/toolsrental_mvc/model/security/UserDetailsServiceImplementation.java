@@ -1,5 +1,6 @@
-package com.itexclusive.toolsrental_mvc.model.dao.repositories;
+package com.itexclusive.toolsrental_mvc.model.security;
 
+import com.itexclusive.toolsrental_mvc.model.dao.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +14,8 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repo.findByUsername(username);
+        // Методом get можем пользоваться так какне сможем сюда попасть без пользователя
+        User loadedUser = repo.findByUsername(username).get();
+        return loadedUser.securityUserFromEntity();
     }
 }

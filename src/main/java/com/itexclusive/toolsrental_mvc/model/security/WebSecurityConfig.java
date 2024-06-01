@@ -1,25 +1,36 @@
-package com.itexclusive.toolsrental_mvc.security;
+package com.itexclusive.toolsrental_mvc.model.security;
 
 
+import com.itexclusive.toolsrental_mvc.model.dao.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    private final UserRepository userRepository;
+    private final DataSource dataSource;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -55,25 +66,43 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web
+            .ignoring()
+            .requestMatchers("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/**")
+            .requestMatchers("/styles/*.css", "/*.css", "/img/**");
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return new UserDetailsServiceImplementation(userRepository);
+    }
+
+    @Bean
     protected BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder(12);
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web
-            .ignoring()
-            .requestMatchers("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/**");
-    }
-    @Bean
-    public AuthenticationManager authenticationManager(
-        UserDetailsService userDetailsService,
-        BCryptPasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder);
+    public UserDetailsManager userDetailsManager(HttpSecurity httpSecurity) throws Exception {
+        AuthenticationManager authenticationManager = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
+            .userDetailsService(userDetailsService())
+            .passwordEncoder(encoder())
+            .and()
+            .authenticationProvider(daoAuthenticationProvider())
+            .build();
 
-        return new ProviderManager(authenticationProvider);
+        JdbcUserDetailsManager jdbcManager = new JdbcUserDetailsManager(dataSource);
+        jdbcManager.setAuthenticationManager(authenticationManager);
+        return jdbcManager;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        final DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(encoder());
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService());;
+        return daoAuthenticationProvider;
     }
 }
 

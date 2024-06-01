@@ -25,11 +25,11 @@ public class Item {
     private String model;
     @Column(name = "price")
     private Double price;
-    @ManyToOne
-    @JoinColumn(name = "brand_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "brand_id")
     private Brand brand;
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "category_id")
     private Category category;
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private Set<StockPosition> positions = new HashSet<>();

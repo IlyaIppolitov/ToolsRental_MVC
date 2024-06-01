@@ -2,8 +2,8 @@ package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.UserRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
-import com.itexclusive.toolsrental_mvc.model.entities.user.Role;
-import com.itexclusive.toolsrental_mvc.model.entities.user.User;
+import com.itexclusive.toolsrental_mvc.model.security.Role;
+import com.itexclusive.toolsrental_mvc.model.security.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User save(User user) {
-        if (repo.findByUsername(user.getUsername()) == null) {
+        if (repo.findByUsername(user.getUsername()).isPresent()) {
             user.setPassword(encoder.encode(user.getPassword()));
             user.setRole(Role.ROLE_USER);
             return repo.save(user);
@@ -35,12 +35,12 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public Optional<User> findById(int id) {
-        try {
-            return repo.findById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Optional.empty();
-        }
+        return repo.findById(id);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return repo.findByUsername(username);
     }
 
     @Override

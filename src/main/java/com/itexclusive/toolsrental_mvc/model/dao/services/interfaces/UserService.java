@@ -1,8 +1,11 @@
 package com.itexclusive.toolsrental_mvc.model.dao.services.interfaces;
 
 
-import com.itexclusive.toolsrental_mvc.model.entities.user.User;
+import com.itexclusive.toolsrental_mvc.model.security.User;
+
+import java.util.Optional;
 
 public interface UserService extends DAO<User> {
+    public Optional<User> findByUsername(String username);
 }
 
