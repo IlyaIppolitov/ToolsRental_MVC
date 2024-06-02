@@ -22,7 +22,6 @@ public class UserServiceImplementation implements UserService {
     public User save(User user) {
         if (repo.findByUsername(user.getUsername()).isPresent()) {
             user.setPassword(encoder.encode(user.getPassword()));
-            user.setRole(Role.ROLE_USER);
             return repo.save(user);
         }
         return null;
@@ -44,14 +43,32 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User update(User user) {
-        try {
-            return repo.save(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public void updateUsername(int id, String username) {
+
+        User userToUpdate = repo.findById(id).get();
+        userToUpdate.setUsername(username);
+        repo.save(userToUpdate);
     }
+
+    @Override
+    public void updatePassword(int id, String password) {
+
+        User userToUpdate = repo.findById(id).get();
+        userToUpdate.setPassword(encoder.encode(password));
+        repo.save(userToUpdate);
+    }
+
+//    @Override
+//    public User update(User user) {
+//        try {
+//            return repo.save(user);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
+
 
     @Override
     public boolean deleteById(int id) {

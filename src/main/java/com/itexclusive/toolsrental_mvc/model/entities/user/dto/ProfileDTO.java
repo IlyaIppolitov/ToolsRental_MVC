@@ -1,5 +1,6 @@
-package com.itexclusive.toolsrental_mvc.model.entities.user;
+package com.itexclusive.toolsrental_mvc.model.entities.user.dto;
 
+import com.itexclusive.toolsrental_mvc.model.entities.user.Profile;
 import com.itexclusive.toolsrental_mvc.model.security.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class ProfileDTO {
 
         this.id = profile.getId();
         this.name = profile.getName();
+        this.phone = profile.getPhone();
         this.email = profile.getEmail();
         this.userId = user.getId();
         this.orderIds = profile

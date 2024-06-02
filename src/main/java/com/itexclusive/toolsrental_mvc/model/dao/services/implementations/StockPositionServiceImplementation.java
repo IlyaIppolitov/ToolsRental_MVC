@@ -29,7 +29,6 @@ public class StockPositionServiceImplementation implements StockPositionService 
         return repo.save(stockPosition);
     }
 
-    @Override
     public StockPosition update(StockPosition stockPosition) {
         return null;
     }

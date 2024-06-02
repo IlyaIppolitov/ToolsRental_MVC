@@ -51,6 +51,8 @@ public class WebSecurityConfig {
                 // Задание страницы для входа
                 .loginPage("/login")
                 .defaultSuccessUrl("/profile")
+//                .failureUrl("/login?error=true") // см. контроллер - тоже закомментированная строка
+                    .failureUrl("/login")
             )
             .logout(logout -> logout
                 // Страница для выхода

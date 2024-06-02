@@ -1,6 +1,7 @@
 package com.itexclusive.toolsrental_mvc.model.entities.user;
 
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Order;
+import com.itexclusive.toolsrental_mvc.model.entities.user.dto.ProfileDTO;
 import com.itexclusive.toolsrental_mvc.model.security.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,4 +30,10 @@ public class Profile {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     private Set<Order> orders;
+
+    public void update(ProfileDTO dto){
+        this.name = dto.getName();
+        this.phone = dto.getPhone();
+        this.email = dto.getEmail();
+    }
 }

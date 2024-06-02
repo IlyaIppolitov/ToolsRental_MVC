@@ -2,6 +2,7 @@ package com.itexclusive.toolsrental_mvc.controllers;
 
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
 import com.itexclusive.toolsrental_mvc.model.security.User;
+import com.itexclusive.toolsrental_mvc.model.security.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,9 @@ public class RegistrationController {
     private final UserService userService;
 
     @GetMapping
-    public String registrationPage() {
+    public String registrationPage(Model model) {
+
+        model.addAttribute("user", new UserDTO());
         return "/ui/pages/registration";
     }
 

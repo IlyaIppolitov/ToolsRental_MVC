@@ -7,6 +7,6 @@ public interface DAO<T> {
     List<T> all();
     Optional<T> findById(int id);
     T save(T t);
-    T update(T t);
+//    T update(T t);
     boolean deleteById(int id);
 }

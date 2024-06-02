@@ -34,12 +34,13 @@ public class User implements UserDetails {
     @JoinColumn(name = "user_id")
     private Profile profile;
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(String email, String password) {
+        this.username = "";
         this.password = password;
         this.role = Role.ROLE_USER;
         this.profile = Profile.builder()
             .user(this)
+            .email(email)
             .orders(new HashSet<>() {{
                 add(Order.builder()
                     .isPaid(false)
@@ -48,15 +49,15 @@ public class User implements UserDetails {
             .build();
     }
 
-    public UserDetails securityUserFromEntity(){
+    public UserDetails securityUserFromEntity(String email){
         return new org.springframework.security.core.userdetails.User(
-                this.username,
-                this.password,
-                true,
-                true,
-                true,
-                true,
-                new ArrayList<>(){{add(role);}}
+            email,
+            this.password,
+            true,
+            true,
+            true,
+            true,
+            new ArrayList<>(){{add(role);}}
         );
     }
 

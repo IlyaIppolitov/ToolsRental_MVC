@@ -16,6 +16,8 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Методом get можем пользоваться так какне сможем сюда попасть без пользователя
         User loadedUser = repo.findByUsername(username).get();
-        return loadedUser.securityUserFromEntity();
+        org.springframework.security.core.userdetails.UserDetails securityUser =
+            loadedUser.securityUserFromEntity(username);
+        return securityUser;
     }
 }
