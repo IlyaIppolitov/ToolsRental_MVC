@@ -23,8 +23,8 @@ public class Profile {
     private String name;
     @Column(name = "phone")
     private String phone;
-    @Column(name = "email")
-    private String email;
+    @Column(name = "username")
+    private String username;
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
     @OneToMany(cascade = CascadeType.ALL)
@@ -34,6 +34,6 @@ public class Profile {
     public void update(ProfileDTO dto){
         this.name = dto.getName();
         this.phone = dto.getPhone();
-        this.email = dto.getEmail();
+        this.username = dto.getUsername();
     }
 }

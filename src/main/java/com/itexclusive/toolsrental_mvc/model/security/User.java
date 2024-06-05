@@ -23,8 +23,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
     @Column(name = "password")
     private String password;
     @Column(name = "role")
@@ -34,13 +34,13 @@ public class User implements UserDetails {
     @JoinColumn(name = "user_id")
     private Profile profile;
 
-    public User(String email, String password) {
-        this.username = "";
+    public User(String username, String email, String password) {
+        this.email = email;
         this.password = password;
         this.role = Role.ROLE_USER;
         this.profile = Profile.builder()
             .user(this)
-            .email(email)
+            .username(username)
             .orders(new HashSet<>() {{
                 add(Order.builder()
                     .isPaid(false)
@@ -64,6 +64,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>() {{add(new SimpleGrantedAuthority(role.name()));}};
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 
     @Override

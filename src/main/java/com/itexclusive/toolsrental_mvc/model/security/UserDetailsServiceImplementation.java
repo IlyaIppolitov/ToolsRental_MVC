@@ -13,11 +13,14 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     private final UserRepository repo;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Методом get можем пользоваться так какне сможем сюда попасть без пользователя
-        User loadedUser = repo.findByUsername(username).get();
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        var loadedUser = repo.findByEmail(email);
+        if (loadedUser == null)
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+
         org.springframework.security.core.userdetails.UserDetails securityUser =
-            loadedUser.securityUserFromEntity(username);
+            loadedUser.securityUserFromEntity(email);
         return securityUser;
     }
 }

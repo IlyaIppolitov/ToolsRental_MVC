@@ -20,7 +20,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User save(User user) {
-        if (repo.findByUsername(user.getUsername()).isPresent()) {
+        if (repo.findByEmail(user.getUsername()) == null) {
             user.setPassword(encoder.encode(user.getPassword()));
             return repo.save(user);
         }
@@ -38,15 +38,18 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return repo.findByUsername(username);
+    public Optional<User> findByUsername(String email) {
+        var foundUser = repo.findByEmail(email);
+        if (foundUser == null)
+            return Optional.empty();
+        return Optional.of(foundUser);
     }
 
     @Override
-    public void updateUsername(int id, String username) {
+    public void updateUsername(int id, String email) {
 
         User userToUpdate = repo.findById(id).get();
-        userToUpdate.setUsername(username);
+        userToUpdate.setEmail(email);
         repo.save(userToUpdate);
     }
 

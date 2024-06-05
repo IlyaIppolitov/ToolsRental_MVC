@@ -20,7 +20,12 @@
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingInputUsername" name="username" placeholder="myusername" required autofocus>
                             <label for="floatingInputUsername">Username</label>
-                            <span th:if="${error == true && type == 'username'}">username занят</span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputEmail" name="email" placeholder="email" required>
+                            <label for="floatingInputEmail">Email</label>
+                            <span th:if="${error == true && type == 'email'}">email занят</span>
                         </div>
 
                         <hr>

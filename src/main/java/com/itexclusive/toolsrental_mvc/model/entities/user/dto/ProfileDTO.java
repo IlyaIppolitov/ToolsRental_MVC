@@ -12,13 +12,12 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@Builder
 @ToString
 public class ProfileDTO {
     private Integer id;
     private String name;
     private String phone;
-    private String email;
+    private String username;
     private int userId;
     private Set<Integer> orderIds;
 
@@ -28,7 +27,7 @@ public class ProfileDTO {
         this.id = profile.getId();
         this.name = profile.getName();
         this.phone = profile.getPhone();
-        this.email = profile.getEmail();
+        this.username = profile.getUsername();
         this.userId = user.getId();
         this.orderIds = profile
             .getOrders()
