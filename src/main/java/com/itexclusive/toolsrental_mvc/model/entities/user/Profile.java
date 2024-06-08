@@ -19,8 +19,8 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "fio")
+    private String fio;
     @Column(name = "phone")
     private String phone;
     @Column(name = "username")
@@ -32,7 +32,7 @@ public class Profile {
     private Set<Order> orders;
 
     public void update(ProfileDTO dto){
-        this.name = dto.getName();
+        this.fio = dto.getFio();
         this.phone = dto.getPhone();
         this.username = dto.getUsername();
     }

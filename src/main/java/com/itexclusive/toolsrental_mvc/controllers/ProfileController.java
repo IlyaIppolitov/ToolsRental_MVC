@@ -25,7 +25,7 @@ public class ProfileController {
         User user = userService.findByUsername(authentication.getName()).get();
 
         ProfileDTO profileDTO = new ProfileDTO(user);
-        model.addAttribute("profile", profileDTO);
+        model.addAttribute("profileDto", profileDTO);
         return "ui/pages/profile";
     }
 

@@ -15,20 +15,22 @@ import java.util.stream.Collectors;
 @ToString
 public class ProfileDTO {
     private Integer id;
-    private String name;
+    private String fio;
     private String phone;
     private String username;
     private int userId;
     private Set<Integer> orderIds;
+    private String email;
 
     public ProfileDTO(User user){
         Profile profile = user.getProfile();
 
         this.id = profile.getId();
-        this.name = profile.getName();
+        this.fio = profile.getFio();
         this.phone = profile.getPhone();
         this.username = profile.getUsername();
         this.userId = user.getId();
+        this.email = user.getEmail();
         this.orderIds = profile
             .getOrders()
             .stream()

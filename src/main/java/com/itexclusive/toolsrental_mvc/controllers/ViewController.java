@@ -8,10 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -71,10 +67,5 @@ public class ViewController {
 //        public String login(@RequestParam(required = false) String error) {
 
         return "/ui/pages/login";
-    }
-
-    @GetMapping("/checkout")
-    public String checkout() {
-        return "/ui/pages/checkout";
     }
 }

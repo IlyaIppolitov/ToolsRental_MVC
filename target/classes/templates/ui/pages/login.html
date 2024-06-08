@@ -18,9 +18,8 @@
                     <form class="form"  method="post" action="/login">
 
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInputUsername" name="username" placeholder="myusername" required autofocus>
-                            <label for="floatingInputUsername">Username</label>
-                            <span th:if="${error == true && type == 'username'}">username занят</span>
+                            <input type="text" class="form-control" id="floatingInputUsername" name="username" placeholder="email" required autofocus>
+                            <label for="floatingInputUsername">Email</label>
                         </div>
 
                         <hr>
@@ -31,7 +30,7 @@
                         </div>
 
                         <div class="d-grid mb-2">
-                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit" value="sign in">Register</button>
+                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit" value="sign in">Login</button>
                         </div>
 
                         <a class="d-block text-center mt-2 small" href="/register">Нет аккаунта? Зарегистрируйтесь!</a>
