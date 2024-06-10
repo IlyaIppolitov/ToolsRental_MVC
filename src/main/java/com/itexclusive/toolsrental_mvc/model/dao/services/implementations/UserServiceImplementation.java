@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -70,6 +71,13 @@ public class UserServiceImplementation implements UserService {
 //            return null;
 //        }
 //    }
+
+    @Override
+    public boolean passwordVerified(int id, String password) {
+
+        User userToVerify = repo.findById(id).get();
+        return encoder.matches(password, userToVerify.getPassword());
+    }
 
 
 

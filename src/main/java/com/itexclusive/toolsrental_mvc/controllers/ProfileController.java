@@ -4,7 +4,9 @@ import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.ProfileServ
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
 import com.itexclusive.toolsrental_mvc.model.entities.user.dto.ProfileDTO;
 import com.itexclusive.toolsrental_mvc.model.security.User;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.security.core.Authentication;
@@ -37,13 +39,39 @@ public class ProfileController {
 //    }
 
     @PostMapping("/update")
-    public String Update(@ModelAttribute ProfileDTO dto){
+    public String Update(@ModelAttribute(name = "profileDTO") ProfileDTO profileDTO){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // Проверка id в запросе с id пользователя
-        if (userService.findByUsername(authentication.getName()).get().getId() == dto.getUserId()){
-            profileService.update(dto);
+        if (userService.findByUsername(authentication.getName()).get().getId() == profileDTO.getUserId()){
+
+            profileService.update(profileDTO);
         }
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/update_pass")
+    public String UpdatePass(@RequestParam Integer userId,
+                             @RequestParam String oldPassword,
+                             @RequestParam String password,
+                             @RequestParam String passRepeat,
+                             RedirectAttributes ra){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // Проверка id в запросе с id пользователя
+        if (userService.findByUsername(authentication.getName()).get().getId() == userId) {
+
+            if (userService.passwordVerified(userId, oldPassword)) {
+                if (password.equals(passRepeat)) {
+                    userService.updatePassword(userId, password);
+                } else {
+                    ra.addFlashAttribute("error", "pass_repeat");
+                }
+            } else {
+                ra.addFlashAttribute("error", "wrong_pass");
+            }
+        }
+        ra.addFlashAttribute("error", "id_error");
         return "redirect:/profile";
     }
 

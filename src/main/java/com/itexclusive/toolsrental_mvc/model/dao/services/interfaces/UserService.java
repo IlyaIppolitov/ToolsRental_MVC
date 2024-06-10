@@ -10,6 +10,7 @@ public interface UserService extends DAO<User> {
 
     void updateUsername(int id, String username);
     void updatePassword(int id, String password);
+    boolean passwordVerified(int id, String password);
 
 }
 
