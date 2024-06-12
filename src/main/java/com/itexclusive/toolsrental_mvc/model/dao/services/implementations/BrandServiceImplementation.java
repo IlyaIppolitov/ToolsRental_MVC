@@ -3,6 +3,7 @@ package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.BrandRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.BrandService;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Brand;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,11 @@ public class BrandServiceImplementation implements BrandService {
 
     public Brand update(Brand brand) {
         return null;
+    }
+
+    @Override
+    public Optional<Brand> findByName(String name) {
+        return repo.findBrandByName(name);
     }
 
     @Override

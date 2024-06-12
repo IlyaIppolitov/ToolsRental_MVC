@@ -39,6 +39,11 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
+    public Optional<Category> findByName(String name) {
+        return repo.findCategoryByName(name);
+    }
+
+    @Override
     public boolean deleteById(int id) {
         return false;
     }

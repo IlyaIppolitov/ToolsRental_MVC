@@ -4,9 +4,7 @@ import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.ProfileServ
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
 import com.itexclusive.toolsrental_mvc.model.entities.user.dto.ProfileDTO;
 import com.itexclusive.toolsrental_mvc.model.security.User;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.security.core.Authentication;
@@ -65,13 +63,17 @@ public class ProfileController {
                 if (password.equals(passRepeat)) {
                     userService.updatePassword(userId, password);
                 } else {
-                    ra.addFlashAttribute("error", "pass_repeat");
+                    ra.addFlashAttribute("error", true);
+                    ra.addFlashAttribute("type_error", "pass_repeat");
                 }
             } else {
-                ra.addFlashAttribute("error", "wrong_pass");
+                ra.addFlashAttribute("error", true);
+                ra.addFlashAttribute("type_error", "wrong_pass");
             }
+        } else {
+            ra.addFlashAttribute("error", true);
+            ra.addFlashAttribute("type_error", "id_error");
         }
-        ra.addFlashAttribute("error", "id_error");
         return "redirect:/profile";
     }
 

@@ -2,6 +2,7 @@ package com.itexclusive.toolsrental_mvc.model.security;
 
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Order;
 import com.itexclusive.toolsrental_mvc.model.entities.user.Profile;
+import com.itexclusive.toolsrental_mvc.model.security.dto.UserDataDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,6 +39,21 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.role = Role.ROLE_USER;
+        this.profile = Profile.builder()
+            .user(this)
+            .username(username)
+            .orders(new HashSet<>() {{
+                add(Order.builder()
+                    .isPaid(false)
+                    .build());
+            }})
+            .build();
+    }
+
+    public User(String username, String email, Role role, String password) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
         this.profile = Profile.builder()
             .user(this)
             .username(username)

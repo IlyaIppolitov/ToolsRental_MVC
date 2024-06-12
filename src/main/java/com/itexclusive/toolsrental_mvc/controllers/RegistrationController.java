@@ -33,7 +33,7 @@ public class RegistrationController {
                            RedirectAttributes ra) {
         if (!password.equals(passRepeat)) {
             ra.addFlashAttribute("error", true);
-            ra.addFlashAttribute("type", "password");
+            ra.addFlashAttribute("type_error", "password");
             return "redirect:/register";
 
         }
@@ -42,7 +42,7 @@ public class RegistrationController {
 
         if (registered == null) {
             ra.addFlashAttribute("error", true);
-            ra.addFlashAttribute("type", "email");
+            ra.addFlashAttribute("type_error", "email");
             return "redirect:/register";
         }
 

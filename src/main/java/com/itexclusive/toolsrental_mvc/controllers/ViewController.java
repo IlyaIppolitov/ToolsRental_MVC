@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class ViewController {
-    private final CategoryService categoryService;
-    private final ItemService itemService;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -26,40 +24,6 @@ public class ViewController {
 //                .collect(Collectors.toList());
 //        model.addAttribute("categories", categories);
         return "ui/pages/index";
-    }
-
-    @GetMapping("/category/{id}")
-    public String categoryCatalogue(@PathVariable int id, Model model) {
-//        List<ItemDTO> items = categoryService.findById(id).get()
-//                .getStock().stream()
-//                .map(item -> ItemDTO.builder()
-//                        .id(item.getId())
-//                        .article(item.getArticle())
-//                        .model(item.getModel())
-//                        .price(item.getPrice())
-//                        .sex(item.getSex())
-//                        .brand(item.getBrand().getName())
-//                        .build())
-//                .toList();
-//        model.addAttribute("items", items);
-        return "/ui/pages/searchResults";
-    }
-
-    @GetMapping("/item/{id}")
-    public String itemCard(@PathVariable int id, Model model) {
-//        int[][] stockMap = itemService.getStockMap(id);
-//        model.addAttribute("stockMap", stockMap);
-//        model.addAttribute("item", itemService.findById(id).map(item -> ItemDTO.builder()
-//                        .id(item.getId())
-//                        .article(item.getArticle())
-//                        .model(item.getModel())
-//                        .price(item.getPrice())
-//                        .sex(item.getSex())
-//                        .brand(item.getBrand().getName())
-//                        .build()
-//                )
-//        );
-        return "/ui/pages/itemCard";
     }
 
     @GetMapping("/login")

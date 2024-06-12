@@ -11,4 +11,5 @@ public class ItemDTO {
     private String model;
     private double price;
     private String brand;
+    private int stock;
 }

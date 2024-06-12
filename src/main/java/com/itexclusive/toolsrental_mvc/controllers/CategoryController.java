@@ -2,6 +2,7 @@ package com.itexclusive.toolsrental_mvc.controllers;
 
 
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.CategoryService;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.ItemService;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
+    private final ItemService itemService;
 
     @GetMapping
     private String categoriesPage(Model model) {
         model.addAttribute("categories", categoryService.all());
         return "/ui/pages/categories";
+    }
+
+    @GetMapping("/{id}")
+    private String categoryIdPage(@PathVariable Integer id, Model model) {
+        model.addAttribute("items", itemService.getAllByCategoryId(id));
+        return "/ui/pages/searchResults";
     }
 
     @PostMapping

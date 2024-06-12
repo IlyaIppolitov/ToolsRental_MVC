@@ -2,6 +2,7 @@ package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.ItemRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.ItemService;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.ItemDTO;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Item;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.StockPosition;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,15 +39,32 @@ public class ItemServiceImplementation implements ItemService {
     }
 
     @Override
-    public List<Item> getAllByCategoryId(int id) {
-        return repo.getItemsByCategoryId(id);
+    public List<ItemDTO> getAllByCategoryId(int id) {
+        List<Item> items = repo.getItemsByCategoryId(id);
+
+        List<ItemDTO> dto = items.stream()
+            .map(item -> ItemDTO.builder()
+                .id(item.getId())
+                .article(item.getArticle())
+                .model(item.getModel())
+                .price(item.getPrice())
+                .brand(item.getBrand().getName())
+                .stock(item.getPosition().getAmount())
+                .build())
+            .toList();
+
+        return dto;
     }
 
     @Override
-    public List<StockPosition> getStock(int id) {
+    public Integer getStock(int id) {
+
         var item = repo.findById(id);
-        return item.map(value -> new ArrayList<>(value.getPositions()))
-                    .orElse(null);
+
+        if (item.isEmpty())
+            return 0;
+
+        return item.get().getPosition().getAmount();
     }
 
     public Item update(Item item) {
