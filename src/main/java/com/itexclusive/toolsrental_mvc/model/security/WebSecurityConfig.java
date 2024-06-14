@@ -52,7 +52,7 @@ public class WebSecurityConfig {
             .formLogin(formLogin -> formLogin
                 // Задание страницы для входа
                 .loginPage("/login")
-                .defaultSuccessUrl("/profile")
+                .defaultSuccessUrl("/profile", true)
 //                .failureUrl("/login?error=true") // см. контроллер - тоже закомментированная строка
                     .failureUrl("/login")
             )
