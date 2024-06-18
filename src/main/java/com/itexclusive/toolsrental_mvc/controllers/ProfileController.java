@@ -22,7 +22,7 @@ public class ProfileController {
 
     @GetMapping
     public String profilePage(Model model, Authentication authentication){
-        User user = userService.findByUsername(authentication.getName()).get();
+        User user = userService.findByEmail(authentication.getName()).get();
 
         ProfileDTO profileDTO = new ProfileDTO(user);
         model.addAttribute("profileDto", profileDTO);
@@ -41,7 +41,7 @@ public class ProfileController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // Проверка id в запросе с id пользователя
-        if (userService.findByUsername(authentication.getName()).get().getId() == profileDTO.getUserId()){
+        if (userService.findByEmail(authentication.getName()).get().getId() == profileDTO.getUserId()){
 
             profileService.update(profileDTO);
         }
@@ -57,7 +57,7 @@ public class ProfileController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // Проверка id в запросе с id пользователя
-        if (userService.findByUsername(authentication.getName()).get().getId() == userId) {
+        if (userService.findByEmail(authentication.getName()).get().getId() == userId) {
 
             if (userService.passwordVerified(userId, oldPassword)) {
                 if (password.equals(passRepeat)) {
@@ -82,7 +82,7 @@ public class ProfileController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // Проверка id в запросе с id пользователя
-        if (userService.findByUsername(authentication.getName()).get().getProfile().getId() == profileId){
+        if (userService.findByEmail(authentication.getName()).get().getProfile().getId() == profileId){
             ra.addFlashAttribute("warning", "Вы точно хотите удалить свой аккаунт?");
         } else {
             ra.addFlashAttribute("warning", "Не нужно удалять чужой аккаунт!");

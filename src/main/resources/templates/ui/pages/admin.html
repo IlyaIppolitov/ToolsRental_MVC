@@ -18,17 +18,21 @@
                 <th scope="col">username</th>
                 <th scope="col">email</th>
                 <th scope="col">role</th>
-                <th scope="col"></th>
+                <th scope="col">action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user: ${users}">
-                <th scope="row">[[*{user.id}]]</th>
-                <td>[[*{user.username}]]</td>
-                <td>[[*{user.email}]]</td>
-                <td>[[*{user.role}]]</td>
+                <th scope="row"><span class="non-editable">[[*{user.id}]]</span></th>
+                <td><span class="td-username editable">[[*{user.username}]]</span></td>
+                <td><span class="td-email editable">[[*{user.email}]]</span></td>
+                <td><span class="td-role editable" th:data-role="@{${user.role}}">[[*{user.role}]]</span></td>
                 <td>
-                    <button type="button" class="btn btn-dark">Dark</button>
+                    <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary edit-btn">Edit</button>
+                    <button class="btn btn-success save-btn d-none">Save</button>
+                    <button class="btn btn-secondary cancel-btn d-none">Cancel</button>
+                    </div>
                 </td>
             </tr>
 
@@ -36,6 +40,9 @@
         </table>
     </main>
 </wrapper>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/scripts/admin.js"></script>
 
 </body>
 </html>

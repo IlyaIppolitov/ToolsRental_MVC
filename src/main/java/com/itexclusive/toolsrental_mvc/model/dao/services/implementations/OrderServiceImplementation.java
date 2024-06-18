@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +71,10 @@ public class OrderServiceImplementation implements OrderService {
                 .stockPosition(stockPosition)
                 .amount(amount)
                 .build();
+        Set<OrderPosition> positions = order.getPositions();
+        if (positions.contains(orderPosition)){
+            return;
+        }
         order.getPositions().add(orderPosition);
         orderRepository.save(order);
 

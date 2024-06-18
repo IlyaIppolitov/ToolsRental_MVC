@@ -21,7 +21,8 @@ public class StockPosition {
 //    @JoinColumn(name = "item_id")
     @OneToOne()
     @JoinColumn(name = "item_id")
-    private Item item;private StockPosition(Builder builder) {
+    private Item item;
+    private StockPosition(Builder builder) {
         this.amount = builder.amount;
         this.item = builder.item;
     }

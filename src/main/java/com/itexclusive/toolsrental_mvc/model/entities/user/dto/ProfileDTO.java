@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class ProfileDTO {
     private Integer id;
-    private String fio;
     private String phone;
     private String username;
     private Integer userId;
@@ -24,7 +23,6 @@ public class ProfileDTO {
         Profile profile = user.getProfile();
 
         this.id = profile.getId();
-        this.fio = profile.getFio();
         this.phone = profile.getPhone();
         this.username = profile.getUsername();
         this.userId = user.getId();

@@ -1,10 +1,15 @@
 package com.itexclusive.toolsrental_mvc.model.entities.shop.DTO;
 
+import com.itexclusive.toolsrental_mvc.model.entities.shop.Item;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ItemDTO {
     private int id;
     private String article;
@@ -12,4 +17,14 @@ public class ItemDTO {
     private double price;
     private String brand;
     private int stock;
+
+    public ItemDTO (Item item){
+        this.id = item.getId();
+        this.article = item.getArticle();
+        this.model = item.getModel();
+        this.price = item.getPrice();
+        this.brand = item.getBrand().getName();
+        this.stock = item.getPosition().getAmount();
+    }
+
 }

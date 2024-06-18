@@ -1,9 +1,12 @@
 package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.ProfileRepository;
+import com.itexclusive.toolsrental_mvc.model.dao.repositories.UserRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.ProfileService;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
 import com.itexclusive.toolsrental_mvc.model.entities.user.Profile;
 import com.itexclusive.toolsrental_mvc.model.entities.user.dto.ProfileDTO;
+import com.itexclusive.toolsrental_mvc.model.security.dto.UserDataDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +17,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProfileServiceImplementation implements ProfileService {
 
-    private final ProfileRepository repo;
+    private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
 
     @Override
     public List<Profile> all() {
-        return repo.findAll();
+        return profileRepository.findAll();
     }
 
     @Override
     public Optional<Profile> findById(int id) {
-        return repo.findById(id);
+        return profileRepository.findById(id);
     }
 
     @Override
@@ -35,15 +39,28 @@ public class ProfileServiceImplementation implements ProfileService {
     public Profile update(ProfileDTO dto) {
 
         // Здесь проверка не является обязательной, так как выше проверка уже пройдена
-        Profile toUpdate = repo.findById(dto.getId()).get();
+        Profile toUpdate = profileRepository.findById(dto.getId()).get();
         toUpdate.update(dto);
-        return repo.save(toUpdate);
+        return profileRepository.save(toUpdate);
+    }
+
+    @Override
+    public Profile update(UserDataDTO dto) {
+
+        try{
+            var profileToUpdate = userRepository.findById(dto.getId()).get().getProfile();
+            profileToUpdate.setUsername(dto.getUsername());
+            return profileRepository.save(profileToUpdate);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public boolean deleteById(int id) {
-        if (repo.existsById(id)) {
-            repo.deleteById(id);
+        if (profileRepository.existsById(id)) {
+            profileRepository.deleteById(id);
             return true;
         }
         return false;

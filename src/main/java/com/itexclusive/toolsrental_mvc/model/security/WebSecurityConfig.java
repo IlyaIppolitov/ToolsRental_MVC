@@ -6,17 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -43,7 +40,7 @@ public class WebSecurityConfig {
                 // Страница администратора доступна только администратору
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 // Определение страниц доступных вошедшим
-                .requestMatchers("/logout", "/checkout", "/categories", "/profile/**", "/categories/**").authenticated()
+                .requestMatchers("/logout", "/checkout", "/categories", "/profile/**", "/categories/**","/cart/**","/scripts/**").authenticated()
                 // Везде можно ходить админу и тестировщику
                 .requestMatchers("/**").hasAnyRole("ADMIN", "TEST")
                 // Все остальные запросы доступны только с антентификацией

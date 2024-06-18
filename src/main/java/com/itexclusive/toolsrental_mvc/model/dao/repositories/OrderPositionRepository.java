@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderPositionRepository extends JpaRepository<OrderPosition, Integer> {
+    public void deleteOrderPositionByOrder_IdAndStockPosition_Id(Integer orderId, Integer positionId);
 }
