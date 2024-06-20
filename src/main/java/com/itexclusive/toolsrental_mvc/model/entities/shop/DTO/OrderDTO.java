@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
-    List<ItemDTO> items;
+    List<OrderPositionDTO> items;
     Double total;
     boolean isPaid;
 }

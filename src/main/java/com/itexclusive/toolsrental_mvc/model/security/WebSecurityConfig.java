@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                 // Страница администратора доступна только администратору
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 // Определение страниц доступных вошедшим
-                .requestMatchers("/logout", "/checkout", "/categories", "/profile/**", "/categories/**","/cart/**","/scripts/**").authenticated()
+                .requestMatchers("/logout", "/checkout", "/categories", "/profile/**", "/categories/**","/order/**","/scripts/**").authenticated()
                 // Везде можно ходить админу и тестировщику
                 .requestMatchers("/**").hasAnyRole("ADMIN", "TEST")
                 // Все остальные запросы доступны только с антентификацией

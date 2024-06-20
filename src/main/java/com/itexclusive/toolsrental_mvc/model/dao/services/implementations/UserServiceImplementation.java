@@ -5,6 +5,7 @@ import com.itexclusive.toolsrental_mvc.model.dao.repositories.UserRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.ItemDTO;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.OrderDTO;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.OrderPositionDTO;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Order;
 import com.itexclusive.toolsrental_mvc.model.entities.user.Profile;
 import com.itexclusive.toolsrental_mvc.model.security.Role;
@@ -112,14 +113,13 @@ public class UserServiceImplementation implements UserService {
     @Override
     public OrderDTO getCurrentOrderDTO(User user){
         var currentOrder = getCurrentOrder(user);
-        List<ItemDTO> items = currentOrder.getPositions().stream()
-            .map(orderPosition ->
-                new ItemDTO(orderPosition.getStockPosition().getItem())
+        List<OrderPositionDTO> items = currentOrder.getPositions().stream()
+            .map(OrderPositionDTO::new
             )
             .toList();
         Double total = items
             .stream()
-            .mapToDouble(ItemDTO::getPrice)
+            .mapToDouble(OrderPositionDTO::getPrice)
             .sum();
         return new OrderDTO(items, total, false);
     }

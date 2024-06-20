@@ -19,7 +19,7 @@
                 <li><a href="/" class="nav-link px-2">Главная</a></li>
                 <li><a href="/categories" class="nav-link px-2">Категории</a></li>
                 <li><a href="/profile" class="nav-link px-2">Профиль</a></li>
-                <li><a href="/cart" class="nav-link px-2">Корзина</a></li>
+                <li><a href="/order" class="nav-link px-2">Корзина</a></li>
                 <!-- Ссылка только для ROLE_ADMIN -->
                 <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                     <a href="/admin" class="nav-link px-2">Администратор</a>

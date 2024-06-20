@@ -16,6 +16,7 @@ public class ItemDTO {
     private String model;
     private double price;
     private String brand;
+    private int positionId;
     private int stock;
 
     public ItemDTO (Item item){
@@ -24,6 +25,7 @@ public class ItemDTO {
         this.model = item.getModel();
         this.price = item.getPrice();
         this.brand = item.getBrand().getName();
+        this.positionId = item.getPosition().getId();
         this.stock = item.getPosition().getAmount();
     }
 

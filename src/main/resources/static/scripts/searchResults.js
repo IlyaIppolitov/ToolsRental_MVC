@@ -4,8 +4,8 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/cart/add',
-            data: JSON.stringify({ id: itemId }),
+            url: '/order/add',
+            data: JSON.stringify({ id: itemId, amount: 1 }),
             contentType: 'application/json',
             success: function(response) {
                 console.log(response);

@@ -1,7 +1,9 @@
 package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.OrderPositionRepository;
+import com.itexclusive.toolsrental_mvc.model.dao.repositories.StockPositionRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.OrderPositionService;
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.StockPositionService;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.OrderPosition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderPositionServiceImplementation implements OrderPositionService {
     private final OrderPositionRepository repo;
+    private final StockPositionRepository stockPositionRepository;
 
     @Override
     public List<OrderPosition> all() {
