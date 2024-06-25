@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/order")
@@ -30,15 +30,16 @@ public class OrderController {
         return "/ui/pages/order";
     }
 
-    @PostMapping("/paid/{id}")
-    public String orderPaid(@PathVariable int id) {
-        orderService.pay(id);
-        return "redirect:/profile";
-    }
+    @PostMapping("/submit")
+    public String submitForm(@RequestParam Integer orderId, RedirectAttributes ra) {
 
-    @PostMapping("/delete/{id}")
-    public String delete(@PathVariable int id) {
-        orderService.deleteById(id);
-        return "redirect:/categories";
+        if (orderService.checkQty(orderId)){
+            orderService.pay(orderId);
+            return "redirect:/profile";
+        } else {
+            ra.addFlashAttribute("error", true);
+            ra.addFlashAttribute("type_error", "qty");
+            return "redirect:/order";
+        }
     }
 }

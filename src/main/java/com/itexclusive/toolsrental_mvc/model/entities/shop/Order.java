@@ -19,6 +19,8 @@ public class Order {
     private Integer id;
     @Column(name = "isPaid")
     private Boolean isPaid;
+    @Column(name = "price")
+    private Double price;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Set<OrderPosition> positions;

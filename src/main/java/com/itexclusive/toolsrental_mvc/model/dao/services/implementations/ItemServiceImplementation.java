@@ -42,18 +42,7 @@ public class ItemServiceImplementation implements ItemService {
     public List<ItemDTO> getAllByCategoryId(int id) {
         List<Item> items = repo.getItemsByCategoryId(id);
 
-        List<ItemDTO> dto = items.stream()
-            .map(item -> ItemDTO.builder()
-                .id(item.getId())
-                .article(item.getArticle())
-                .model(item.getModel())
-                .price(item.getPrice())
-                .brand(item.getBrand().getName())
-                .stock(item.getPosition().getAmount())
-                .build())
-            .toList();
-
-        return dto;
+        return mapItemListToItemDtoList(items);
     }
 
     @Override
@@ -85,5 +74,31 @@ public class ItemServiceImplementation implements ItemService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<ItemDTO> getAllByQuery(String query){
+        List<Item> items = repo.searchByModelOrBrandName(query);
+
+        return mapItemListToItemDtoList(items);
+    }
+
+    @Override
+    public List<ItemDTO> getRandom(){
+        List<Item> items = repo.findRandomItems();
+        return mapItemListToItemDtoList(items);
+    }
+
+    private List<ItemDTO> mapItemListToItemDtoList(List<Item> items){
+        return items.stream()
+            .map(item -> ItemDTO.builder()
+                .id(item.getId())
+                .article(item.getArticle())
+                .model(item.getModel())
+                .price(item.getPrice())
+                .brand(item.getBrand().getName())
+                .stock(item.getPosition().getAmount())
+                .build())
+            .toList();
     }
 }

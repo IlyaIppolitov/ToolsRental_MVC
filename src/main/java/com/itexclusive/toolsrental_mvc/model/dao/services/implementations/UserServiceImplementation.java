@@ -3,7 +3,6 @@ package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.OrderRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.UserRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
-import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.ItemDTO;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.OrderDTO;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.OrderPositionDTO;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Order;
@@ -15,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -106,8 +106,8 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public Order getCurrentOrder(User user){
-        Profile profile = user.getProfile();
-        return orderRepository.getOrderByProfileEqualsAndIsPaidEquals(profile, false);
+        LinkedList<Order> orders = orderRepository.getOrdersByProfile_IdEqualsAndIsPaidEquals(user.getProfile().getId(), false);
+        return orders.getLast();
     }
 
     @Override
@@ -121,6 +121,6 @@ public class UserServiceImplementation implements UserService {
             .stream()
             .mapToDouble(OrderPositionDTO::getPrice)
             .sum();
-        return new OrderDTO(items, total, false);
+        return new OrderDTO(currentOrder.getId(), items);
     }
 }

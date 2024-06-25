@@ -27,6 +27,7 @@ $(document).ready(function() {
         const inStock = parseInt(inStockValue, 10);
         if (inStock < amount){
             alert('Вводите количество меньшее доступного!');
+            input.val(1);
             return;
         }
 

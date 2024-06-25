@@ -1,7 +1,10 @@
 package com.itexclusive.toolsrental_mvc.controllers;
 
+import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.OrderService;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.ProfileService;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.ShortOrdersDTO;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.Order;
 import com.itexclusive.toolsrental_mvc.model.entities.user.dto.ProfileDTO;
 import com.itexclusive.toolsrental_mvc.model.security.User;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +22,16 @@ public class ProfileController {
 
     private final UserService userService;
     private final ProfileService profileService;
+    private final OrderService orderService;
 
     @GetMapping
     public String profilePage(Model model, Authentication authentication){
         User user = userService.findByEmail(authentication.getName()).get();
 
         ProfileDTO profileDTO = new ProfileDTO(user);
+        ShortOrdersDTO ordersDTO = orderService.getPaidByProfileId(user.getProfile().getId());
         model.addAttribute("profileDto", profileDTO);
+        model.addAttribute("orders", ordersDTO);
         return "ui/pages/profile";
     }
 

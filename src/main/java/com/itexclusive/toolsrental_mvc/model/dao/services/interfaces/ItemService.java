@@ -10,4 +10,6 @@ import java.util.Set;
 public interface ItemService extends DAO<Item> {
     List<ItemDTO> getAllByCategoryId(int id);
     Integer getStock(int id);
+    List<ItemDTO> getAllByQuery(String query);
+    List<ItemDTO> getRandom();
 }

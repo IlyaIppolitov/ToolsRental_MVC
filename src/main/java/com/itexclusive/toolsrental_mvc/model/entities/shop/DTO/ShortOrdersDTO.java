@@ -11,7 +11,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO {
-    Integer orderId;
-    List<OrderPositionDTO> items;
+public class ShortOrdersDTO {
+    List<ShortOrderDTO> orders;
 }
