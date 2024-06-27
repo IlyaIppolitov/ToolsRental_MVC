@@ -15,6 +15,7 @@ public class ItemDTO {
     private String article;
     private String model;
     private double price;
+    private String img;
     private String brand;
     private int positionId;
     private int stock;
@@ -24,6 +25,7 @@ public class ItemDTO {
         this.article = item.getArticle();
         this.model = item.getModel();
         this.price = item.getPrice();
+        this.img = item.getImg();
         this.brand = item.getBrand().getName();
         this.positionId = item.getPosition().getId();
         this.stock = item.getPosition().getAmount();

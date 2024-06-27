@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<wrapper >
+    <th:block th:insert="~{/ui/layouts/header.html::headerLayout()}"></th:block>
+    <main>
+        <h3 class="align-items-center">Заказ № [[*{orderDto.orderId}]]</h3>
+        <div class="container w-75">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Производитель</th>
+                    <th scope="col">Модель</th>
+                    <th scope="col">Цена, день.</th>
+                    <th scope="col">Количество</th>
+                </tr>
+                </thead>
+                <tbody id="itemTableBody">
+                <tr class="align-items-center" th:each="item, iter: ${orderDto.items}">
+                    <th scope="row"><span class="non-editable">[[*{iter.index + 1}]]</span></th>
+                    <td><input type="text" readonly class="form-control-plaintext td-brand" th:value="${item.brand}"></td>
+                    <td><input type="text" readonly class="form-control-plaintext td-model" th:value="${item.model}"></td>
+                    <td><input type="text" readonly class="form-control-plaintext td-price" th:value="${item.price}"></td>
+                    <td><input type="text" readonly class="form-control-plaintext td-amount" th:value="${item.amount}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</wrapper>
+</body>
+</html>

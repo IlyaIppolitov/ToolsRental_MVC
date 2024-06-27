@@ -96,6 +96,7 @@ public class ItemServiceImplementation implements ItemService {
                 .article(item.getArticle())
                 .model(item.getModel())
                 .price(item.getPrice())
+                .img(item.getImg())
                 .brand(item.getBrand().getName())
                 .stock(item.getPosition().getAmount())
                 .build())

@@ -4,6 +4,7 @@ import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.OrderServic
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.UserService;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.OrderDTO;
 import com.itexclusive.toolsrental_mvc.model.security.User;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -41,5 +42,11 @@ public class OrderController {
             ra.addFlashAttribute("type_error", "qty");
             return "redirect:/order";
         }
+    }
+
+    @GetMapping("/{id}")
+    private String categoryIdPage(@PathVariable Integer id, Model model) {
+        model.addAttribute("orderDto", orderService.getOrderDTOById(id));
+        return "/ui/pages/old_order";
     }
 }

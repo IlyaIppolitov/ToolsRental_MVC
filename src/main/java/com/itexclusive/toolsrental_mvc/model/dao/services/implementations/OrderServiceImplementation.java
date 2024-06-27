@@ -3,9 +3,7 @@ package com.itexclusive.toolsrental_mvc.model.dao.services.implementations;
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.OrderRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.repositories.StockPositionRepository;
 import com.itexclusive.toolsrental_mvc.model.dao.services.interfaces.OrderService;
-import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.ItemDTO;
-import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.ShortOrderDTO;
-import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.ShortOrdersDTO;
+import com.itexclusive.toolsrental_mvc.model.entities.shop.DTO.*;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Item;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.Order;
 import com.itexclusive.toolsrental_mvc.model.entities.shop.OrderPosition;
@@ -117,6 +115,7 @@ public class OrderServiceImplementation implements OrderService {
         return false;
     }
 
+    @Override
     public ShortOrdersDTO getPaidByProfileId(Integer profileId){
         var orders = orderRepository.getOrdersByProfile_IdEqualsAndIsPaidEquals(profileId, true);
         var ordersData = orders.stream()
@@ -126,6 +125,21 @@ public class OrderServiceImplementation implements OrderService {
                 .build())
             .toList();
         return new ShortOrdersDTO(ordersData);
+    }
+
+    @Override
+    public OrderDTO getOrderDTOById(Integer orderId){
+
+        Order order = orderRepository.findById(orderId).get();
+        List<OrderPositionDTO> items = order.getPositions().stream()
+            .map(OrderPositionDTO::new
+            )
+            .toList();
+        Double total = items
+            .stream()
+            .mapToDouble(OrderPositionDTO::getPrice)
+            .sum();
+        return new OrderDTO(order.getId(), items);
     }
 
     private List<ItemDTO> mapItemListToItemDtoList(List<Item> items){

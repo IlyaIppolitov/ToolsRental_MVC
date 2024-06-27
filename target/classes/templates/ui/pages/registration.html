@@ -18,11 +18,6 @@
                     <form class="form"  method="post" action="/register">
 
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInputUsername" name="username" placeholder="myusername" required autofocus>
-                            <label for="floatingInputUsername">Username</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingInputEmail" name="email" placeholder="email" required>
                             <label for="floatingInputEmail">Email</label>
                             <div th:if="${error == true && type_error == 'email'}" class="alert alert-warning" role="alert">

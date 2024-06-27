@@ -21,11 +21,14 @@
         </h4>
         <ul class="list-group mb-3">
 
-            <li th:each="order: ${orders.getOrders()}" class="list-group-item d-flex justify-content-between lh-sm">
+            <li th:each="order: ${orders.getOrders()}" class="list-group-item ">
+
+                <a th:href="@{'/order/' + ${order.orderId}}" class="nav-link px-2 d-flex justify-content-between lh-sm">
                 <div>
                     <h6 class="my-0">Заказ № [[*{order.orderId}]]</h6>
                 </div>
                 <span class="text-body-secondary">[[*{order.price}]] Руб</span>
+                </a>
             </li>
         </ul>
     </div>

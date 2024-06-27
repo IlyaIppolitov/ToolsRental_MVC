@@ -24,6 +24,8 @@ public class Item {
     private String model;
     @Column(name = "price")
     private Double price;
+    @Column(name = "img")
+    private String img;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "brand_id")
     private Brand brand;
@@ -41,6 +43,7 @@ public class Item {
         this.article = builder.article;
         this.model = builder.model;
         this.price = builder.price;
+        this.img = builder.img;
         this.brand = builder.brand;
         this.category = builder.category;
         this.position = builder.position;
@@ -54,6 +57,7 @@ public class Item {
         private String article;
         private String model;
         private Double price;
+        private String img;
         private Brand brand;
         private Category category;
         private StockPosition position;
@@ -70,6 +74,11 @@ public class Item {
 
         public Builder price(Double price) {
             this.price = price;
+            return this;
+        }
+
+        public Builder img(String img) {
+            this.img = img;
             return this;
         }
 

@@ -15,7 +15,7 @@
                 <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
                     <th:block th:each="item : ${items}">
                         <div class="card" style="width: 18rem;">
-                            <img th:src="@{'/img/shop/' + ${item.brand} + '/' + ${item.model} + '.png'}" class="card-img-top" alt="...">
+                            <img th:src="@{${item.img}}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title" >[[*{item.model}]]</h5>
                                 <h1 class="card-title pricing-card-title">[[*{item.price}]]<small class="text-body-secondary fw-light">/день</small></h1>
